@@ -20,28 +20,35 @@
   width: 100%;
 
 
-.appLayout {
-    //height: 100%;
-  flex:1
-}
+  .appLayout {
+      //height: 100%;
+    flex:1;
+    // logo
+    .logo {
+      height: 32px;
+      background: rgba(255,255,255,.2);
+      margin: 16px;
+    }
 
-  // logo
-  .logo {
-    height: 32px;
-    background: rgba(255,255,255,.2);
-    margin: 16px;
-  }
-
-  // 布局头右侧文字
-  .header-title-div {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 20px;
-    float: right;
-    right: 0;
-    .title-span {
-      font-size: x-large;
+    // 布局头右侧文字
+    .header-title-div {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 20px;
+      float: right;
+      right: 0;
+      .title-span {
+        font-size: x-large;
+      }
+    }
+    .breadcrumb-div {
+      background-color: white;
+      padding-left: 32px;
+      padding-top: 10px;
+      padding-right: 32px;
+      margin-top: 2px;
+      height: 40px;
     }
   }
 }
