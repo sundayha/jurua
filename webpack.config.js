@@ -26,6 +26,7 @@ const entry = PROD ? {
         // aTable: 'antd/lib/table',
         // aDatePicker: 'antd/lib/date-picker'
     } : [
+        'react-hot-loader/patch', // RHL patch
         './src/index.js',
     ];
 // 提取项目中 css
@@ -141,6 +142,7 @@ module.exports = {
                     ],
                     cacheDirectory: true,
                 },
+                include: path.join(__dirname, 'src'),
             },
             // 解析装载图片，等文件
             {

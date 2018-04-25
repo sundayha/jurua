@@ -5,6 +5,7 @@
     "stage-0"
   ],
   "plugins": [
-    "transform-proto-to-assign"
+    "transform-proto-to-assign",
+    "react-hot-loader/babel"
   ]
 }
