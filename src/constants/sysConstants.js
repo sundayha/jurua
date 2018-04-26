@@ -12,3 +12,4 @@ export const FORMAT_D_TYPE2 = 'YYYYMM';
 export const CHEAK_MOBILO = /^((\+)?86|((\+)?86)?)0?1[3458]\d{9}$/;//手机号码校验
 export const CHEAK_NUMBER = /^[0-9]*.?[0-9]*$/;//正浮点(只能输入数字和小数点)
 export const CHEAK_EMAIL = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;//邮箱校验
+export const DECIMAL_DIGITS_MONEY = 2;//金额保留两位

@@ -4,6 +4,7 @@
  * 功能描述：渔友出鱼
  */
 import React from 'react';
+import FishFriendsSellFishTable from './FishFriendsSellFishTable';
 
 class FishFriendsSellFish extends React.Component {
 
@@ -12,8 +13,8 @@ class FishFriendsSellFish extends React.Component {
         console.log("===========组件渲染===========");
         
         return(
-            <div>
-                <span>渔友出鱼</span><br/>
+            <div className="fishFriendsSellFish-div">
+                <FishFriendsSellFishTable />
             </div>
         );
     }

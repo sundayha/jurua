@@ -1,4 +1,6 @@
 
+@web-color-blue: #0d85db;//蓝色-字体
+
 .trigger {
   font-size: 18px;
   line-height: 64px;
@@ -11,14 +13,13 @@
   //color: #1890ff;
 }
 
-/*系统布局样式*/
+// 系统布局样式
 .appLayout-div {
   flex-flow: column;
   height: 100%;
   display: flex;
   position: absolute;
   width: 100%;
-
 
   .appLayout {
       //height: 100%;
@@ -53,8 +54,21 @@
   }
 }
 
+// 主页样式
 .home-div {
   height: 100%;
+}
+
+// 渔友出鱼
+.fishFriendsSellFish-div {
+  padding: 5px 5px 5px 5px;
+
+  .action-link-div{
+    &>span{
+      color:@web-color-blue;
+      cursor: pointer;
+    }
+  }
 }
 
 // 屏幕过小时，添加横向滚动条

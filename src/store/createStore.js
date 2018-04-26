@@ -9,7 +9,7 @@ import {autoRehydrate} from 'redux-persist-immutable'; // redux 状态本地化
 import createSagaMiddleware from 'redux-saga';
 import promise from 'redux-promise-middleware';
 import reducers from './reducers';
-// import rootSaga  from './sagas';
+import rootSaga  from './sagas';
 import reduxReset from 'redux-reset';
 import createBrowserHistory from 'history/createBrowserHistory';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
@@ -28,13 +28,13 @@ const store = createStore(
     // reducer的集合
     combineReducers({
         // reducer的集合
-        ...reducers,
+        appReducers: reducers,
         // 把router放进redux中
         router: routerReducer
     }),
     compose(middleware, reduxReset(), autoRehydrate(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()), //redux dev tools 工具用于在chrome上调试redux
 );
 
-// sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga);
 
 export default store;

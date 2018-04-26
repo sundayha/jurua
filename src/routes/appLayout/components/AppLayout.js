@@ -30,7 +30,6 @@ class AppLayout extends React.Component {
             '/appLayout/fishLib': '鱼种库',
             '/appLayout/userManager': '用户管理',
         };
-        console.log(BrowserRouter);
         const { location } = this.props;
         const pathSnippets = location.pathname.split('/').filter(i => i);
         const extraBreadcrumbItems = pathSnippets.map((_, index) => {

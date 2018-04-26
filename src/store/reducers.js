@@ -5,9 +5,11 @@
  */
 import {combineReducers} from "redux-immutable";
 // import appLayout from "../routes/appLayout/modules/appLayout";
-
+import fishFriendsSellFish from "../routes/crowdshare/modules/fishFriendsSellFish";
+import msgReducer from "../js/msgReducer";
 
 export default combineReducers({
     // appLayout,
-
+    fishFriendsSellFish,
+    msgReducer
 });
