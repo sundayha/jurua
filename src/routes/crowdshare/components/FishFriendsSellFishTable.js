@@ -79,11 +79,11 @@ class FishFriendsSellFishTable extends React.Component {
             return (
                 <div>
                     <span className="action-link-div">
-                        <EditSellFish id={row.id} text="编辑" />
+                        <EditSellFish id={row.fBId} text="编辑" />
                     </span>
                     <Divider type="vertical" />
                     <span className="action-link-div">
-                        <EditSellFish id={row.id} text="删除" />
+                        <EditSellFish id={row.fBId} text="删除" />
                     </span>
                 </div>
             )
@@ -106,7 +106,7 @@ class FishFriendsSellFishTable extends React.Component {
                 <Table dataSource={dataSource}
                        pagination={pagination}
                        columns={columns}
-                       rowKey={record => record.id}
+                       rowKey={record => record.fBId}
                        onChange={this.tableOnChange}
                        loading={loading}
                 />
