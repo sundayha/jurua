@@ -26,7 +26,8 @@ class AppLayout extends React.Component {
     
         console.log("===========AppLayout-组件渲染===========");
         const breadcrumbNameMap = {
-            '/appLayout/fishFriendsSellFish': '渔友出鱼',
+            '/appLayout/fishFriendsSellFish': '渔友出鱼列表',
+            '/appLayout/AddFishFriendsSellFishForm': '新建渔友出鱼信息',
             '/appLayout/fishLib': '鱼种库',
             '/appLayout/userManager': '用户管理',
         };
@@ -59,7 +60,13 @@ class AppLayout extends React.Component {
                         collapsed={this.state.collapsed}
                     >
                         <div className="logo">
-                            <img style={{height: '32px'}} src={require('../assets/logo.png')} />
+                            {
+                                this.state.collapsed
+                                    ?
+                                    <img style={{height: '32px'}} src={require('../assets/logoS.png')} />
+                                    :
+                                    <img style={{height: '32px'}} src={require('../assets/logo.png')} />
+                            }
                         </div>
                         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                             <SubMenu key="1" title={<span><Icon type="share-alt" /><span>群共享</span></span>}>
@@ -96,7 +103,7 @@ class AppLayout extends React.Component {
                             }
                         </Content>
                         <Footer style={{textAlign: 'center', backgroundColor: '#f0f2f5'}}>
-                            南美亚马逊短鲷精灵 ©2018 QQ群号：638534625 @群主橙子制作
+                            南美亚马逊短鲷精灵 © 2018 QQ群号：638534625 @群主橙子制作
                         </Footer>
                     </Layout>
                 </Layout>

@@ -9,6 +9,7 @@ import AppLayout from './appLayout/components/AppLayout';
 import NoMatch from './stateCode/components/NoMatch';
 import Home from './home/components/Home';
 import FishFriendsSellFish from './crowdshare/components/FishFriendsSellFish';
+import AddFishFriendsSellFishForm from './crowdshare/components/AddFishFriendsSellFishForm';
 import FishLib from './fishinfo/components/FishLib';
 import UserManager from './sys/components/UserManager';
 
@@ -22,10 +23,11 @@ export default class AppLayoutRoutesDEV extends React.Component {
             <AppLayout>
                 <Switch>
                     {/*主页*/}
-                    <Route path="/appLayout/home" component={Home}/>
-                    <Route path="/appLayout/fishFriendsSellFish" component={FishFriendsSellFish}/>
-                    <Route path="/appLayout/fishLib" component={FishLib}/>
-                    <Route path="/appLayout/userManager" component={UserManager}/>
+                    <Route path="/appLayout/home" component={Home} />
+                    <Route path="/appLayout/fishFriendsSellFish" component={FishFriendsSellFish} />
+                    <Route path="/appLayout/AddFishFriendsSellFishForm/:type" component={AddFishFriendsSellFishForm} />
+                    <Route path="/appLayout/fishLib" component={FishLib} />
+                    <Route path="/appLayout/userManager" component={UserManager} />
 
                     <Route component={NoMatch}/>
                 </Switch>

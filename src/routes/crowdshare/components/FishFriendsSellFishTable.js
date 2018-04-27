@@ -5,13 +5,14 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
-import {Table, Divider} from 'antd';
+import {Table, Divider, Button, Popconfirm} from 'antd';
 import {sagaPost} from '../../../js/sagaUtil';
-import {cSFindFishFriendsSellFishTable, cSFindFishFriendsSellFishTableLoading} from '../modules/fishFriendsSellFish';
-import {FIND_FISH_FRIENDS_SELL_FISH_TABLE} from '../../../constants/url';
+import {cSFindFishFriendsSellFishTable, cSFindFishFriendsSellFishTableLoading, cSUpdateFishFriendsSellFishSetData, cSDeleteFishFriendsSellFish} from '../modules/fishFriendsSellFish';
+import {FIND_FISH_FRIENDS_SELL_FISH_TABLE, EXPORT_FISH_FRIENDS_SELL_FISH_EXCEL} from '../../../constants/url';
 import {messages} from '../../../js/sysMsgUtil';
 import {DECIMAL_DIGITS_MONEY} from '../../../constants/sysConstants';
 import {toDecimal} from '../../../js/globalJs';
+import {push} from 'react-router-redux';
 
 @connect(
     (state) => {
@@ -59,31 +60,47 @@ class FishFriendsSellFishTable extends React.Component {
         }
     }
 
+    downloadFile = () => {
+        this.refs.downloadFile.src = encodeURI(EXPORT_FISH_FRIENDS_SELL_FISH_EXCEL);
+    };
+
+    editSellFish = (rowData) => {
+        const {dispatch} = this.props;
+        dispatch(cSUpdateFishFriendsSellFishSetData(rowData));
+        dispatch(push('/appLayout/AddFishFriendsSellFishForm/update'));
+    };
+
+    deleteSellFish = (rowData) => {
+        const {dispatch} = this.props;
+        dispatch(cSDeleteFishFriendsSellFish(rowData));
+    };
+
     render() {
         console.log("===========渔友出鱼列表-组件渲染===========");
-        const {fishFriendsSellFish} = this.props;
+        const {fishFriendsSellFish, dispatch} = this.props;
         const dataSource = fishFriendsSellFish.getIn(['fishFriendsSellFishTableC', 'dataSource']);
         const pagination = fishFriendsSellFish.getIn(['fishFriendsSellFishTableC', 'pagination']).toObject();
         const loading = fishFriendsSellFish.getIn(['fishFriendsSellFishTableC', 'loading']);
 
-        const money = (text) => {
-
-            return toDecimal(text, DECIMAL_DIGITS_MONEY);
+        const fishQuantity = (text) => {
+            return text === '0' ? '一对' : '一条';
         };
 
-        const EditSellFish = (props) => {
-            return <span onClick={() => {}}>{props.text}</span>
+        const money = (text) => {
+            return toDecimal(text, DECIMAL_DIGITS_MONEY);
         };
 
         const action = (text, row, index) => {
             return (
                 <div>
                     <span className="action-link-div">
-                        <EditSellFish id={row.fBId} text="编辑" />
+                        <span onClick={() => {this.editSellFish(row)}}>编辑</span>
                     </span>
                     <Divider type="vertical" />
                     <span className="action-link-div">
-                        <EditSellFish id={row.fBId} text="删除" />
+                        <Popconfirm title="确定要删除？" onConfirm={() => {this.deleteSellFish(row)}} okText="是" cancelText="否">
+                            <span>删除</span>
+                        </Popconfirm>
                     </span>
                 </div>
             )
@@ -94,15 +111,21 @@ class FishFriendsSellFishTable extends React.Component {
             { title: 'QQ名称', dataIndex: 'qqName'},
             { title: '鱼名', dataIndex: 'fishName'},
             { title: '学名', dataIndex: 'scientificName'},
-            { title: '来源', dataIndex: 'provenance'},
+            { title: '鱼出处', dataIndex: 'provenance'},
             { title: '鱼长/cm', dataIndex: 'fishHeight'},
             { title: '价格/元', dataIndex: 'fishPrice', render: money},
-            { title: '一对/一条', dataIndex: 'fishQuantity'},
+            { title: '一对/一条', dataIndex: 'fishQuantity', render: fishQuantity},
             { title: '操作', render: action},
         ];
-        
+
         return(
             <div>
+                <iframe ref="downloadFile" style={{display: 'none'}}></iframe>
+                <div>
+                    <Button type="primary" shape="circle" icon="plus" onClick={() => {dispatch(push('/appLayout/AddFishFriendsSellFishForm/add'))}} />
+                    <Divider type="vertical" />
+                    <Button type="primary" shape="circle" icon="file-excel" onClick={() => {this.downloadFile()}} />
+                </div>
                 <Table dataSource={dataSource}
                        pagination={pagination}
                        columns={columns}
