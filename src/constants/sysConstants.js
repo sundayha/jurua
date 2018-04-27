@@ -1,0 +1,15 @@
+export const YEAR_DAY = 360; //已登录
+export const LOGGED_ON = '0'; //已登录
+export const LOGGED_OUT = '1'; //已登出
+export const ROLE_FIND_ALL_ROLES = -1; //查询全部角色
+export const ONLY_LETTER_NUM = '[^\a-\z\A-\Z0-9]'; // 过滤特殊字符只能输入大小字符和数字
+export const ONLY_NUM = /^[1-9]\d*$/; // 过滤特殊字符 只能输入1-9数字
+export const ONLY_NUM1 = /^\+?[0-9]\d*$/; // 只能输入0-9数字
+export const ONLY_NUM2 = /^[0-9]*\.?[0-9]+$/; // 只能输入0-9.0-9数字
+export const FORMAT_D_TYPE = 'YYYY-MM-DD';
+export const FORMAT_D_TYPE1 = 'YYYY-MM';
+export const FORMAT_D_TYPE2 = 'YYYYMM';
+export const CHEAK_MOBILO = /^((\+)?86|((\+)?86)?)0?1[3458]\d{9}$/;//手机号码校验
+export const CHEAK_NUMBER = /^[0-9]*.?[0-9]*$/;//正浮点(只能输入数字和小数点)
+export const CHEAK_EMAIL = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;//邮箱校验
+export const DECIMAL_DIGITS_MONEY = 2;//金额保留两位

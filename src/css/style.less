@@ -1,0 +1,93 @@
+
+@web-color-blue: #0d85db;//蓝色-字体
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.trigger:hover {
+  //color: #1890ff;
+}
+
+// 系统布局样式
+.appLayout-div {
+  flex-flow: column;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  width: 100%;
+
+  .appLayout {
+      //height: 100%;
+    flex:1;
+    // logo
+    .logo {
+      height: 32px;
+      background: rgba(255,255,255,.2);
+      margin: 16px;
+    }
+
+    // 布局头右侧文字
+    .header-title-div {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 20px;
+      float: right;
+      right: 0;
+      .title-span {
+        font-size: x-large;
+      }
+    }
+    .breadcrumb-div {
+      background-color: white;
+      padding-left: 32px;
+      padding-top: 10px;
+      padding-right: 32px;
+      margin-top: 2px;
+      height: 40px;
+    }
+  }
+}
+
+// 主页样式
+.home-div {
+  height: 100%;
+}
+
+// 渔友出鱼
+.fishFriendsSellFish-div {
+  padding: 5px 5px 5px 5px;
+
+  .action-link-div{
+    &>span{
+      color:@web-color-blue;
+      cursor: pointer;
+    }
+  }
+}
+
+// 添加渔友出鱼form
+.addFishFriendsSellFishForm-div {
+  .title-span {
+    font-size: x-large;
+  }
+}
+
+// 屏幕过小时，添加横向滚动条
+@media screen and (max-width: 1270px) {
+  .ant-layout.ant-layout-has-sider{
+    min-width: 1080px;
+    &> .ant-web-layoutContent.ant-layout-content{
+      overflow: auto;
+      overflow-x: auto;
+      &>div{
+        min-width: 1080px;
+      }
+    }
+  }
+}
