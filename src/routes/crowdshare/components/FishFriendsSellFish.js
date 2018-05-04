@@ -5,6 +5,7 @@
  */
 import React from 'react';
 import FishFriendsSellFishTable from './FishFriendsSellFishTable';
+import FishFriendsSellFishTableForm from './FishFriendsSellFishTableForm';
 
 class FishFriendsSellFish extends React.Component {
 
@@ -14,6 +15,7 @@ class FishFriendsSellFish extends React.Component {
         
         return(
             <div className="fishFriendsSellFish-div">
+                <FishFriendsSellFishTableForm />
                 <FishFriendsSellFishTable />
             </div>
         );

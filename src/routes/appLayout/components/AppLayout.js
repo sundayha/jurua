@@ -97,7 +97,9 @@ class AppLayout extends React.Component {
                                 {breadcrumbItems}
                             </Breadcrumb>
                         </div>
-                        <Content  style={{minHeight: 'auto', left: '0', top:'0', margin:'20px', paddingBottom:'20px',  backgroundColor: '#fff'}}>
+                        <Content  style={{minHeight: 'auto', left: '0', top:'0', margin:'20px', paddingBottom:'20px',  backgroundColor: '#fff',
+                            height: '100%'
+                        }}>
                             {
                                 this.props.children
                             }
