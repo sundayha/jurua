@@ -4,22 +4,20 @@ import {
     COMMON_OK,
     IP_EQUALS_ERROR,
     NO_JURISDICTION,
-    SESSION_TIME_OUT_ERROR,
+    LOGIN_TIME_OUT_ERROR,
     TOKEN_INVALID,
     TOKEN_TIME_OUT
 } from "../constants/statusCode";
 import {message} from "antd";
 import {BASE_URL} from "../constants/url";
 
+axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 axios.defaults.headers.put['Content-Type'] = 'application/json;charset=UTF-8';
 axios.defaults.withCredentials = true;
-//baseUrl
-axios.defaults.baseURL = API_BASE_URL;
 
-//code状态码200判断
-/*返回结果*/
+// 响应拦截器
 axios.interceptors.response.use((res) => {
     /*1000001session异常，需要重定向到登录页面*/
     /*1000002用戶沒有API權限，需要重定向到登录页面*/
@@ -28,27 +26,28 @@ axios.interceptors.response.use((res) => {
     if (res.headers.authorization) {
         sessionStorage.setItem('authorization', res.headers.authorization);
     }
-    if ((res.data.statusCode > COMMON_OK && res.data.statusCode < 6000000) || (res.data.statusCode > 1000000 && res.data.statusCode < COMMON_OK )) {
+    if ((res.data.statusCode > COMMON_OK && res.data.statusCode < 6000000) || (res.data.statusCode >= 1000000 && res.data.statusCode < COMMON_OK )) {
         /*失败的请求*/
-        if (res.data.statusCode === SESSION_TIME_OUT_ERROR || res.data.statusCode === IP_EQUALS_ERROR || res.data.statusCode === TOKEN_TIME_OUT || res.data.statusCode === TOKEN_INVALID) {
+        if (res.data.statusCode === LOGIN_TIME_OUT_ERROR || res.data.statusCode === IP_EQUALS_ERROR || res.data.statusCode === TOKEN_TIME_OUT || res.data.statusCode === TOKEN_INVALID) {
             message.info(res.data.message);
             // 把已登录标记为未登录, 用于IsLoginRoute 组件判断
             //sessionStorage.setItem('logged', LOGGED_OUT);
             /*跳转登录页*/
-            window.location.href = BASE_URL;
+            window.location.href = BASE_URL.concat('/appLayout');
         } else if (res.data.statusCode === NO_JURISDICTION) {
             message.info(res.data.message);
             /*跳转到首页页面*/
-            window.location.href = BASE_URL;
+            window.location.href = BASE_URL.concat('/appLayout');
         }
         return Promise.reject(res.data);
     }
     return res.data;
-}, err => {
+}, function (error) {
+    console.log(error);
     return Promise.reject({statusCode: "1000000", message: "网络异常，请您联系系统管理员!"})
 });
 
-/*request设置请求头的token*/
+// 请求拦截器
 axios.interceptors.request.use(
     config => {
         if (sessionStorage.getItem('authorization')) {  // 判断是否存在token，如果存在的话，则每个http header都加上token

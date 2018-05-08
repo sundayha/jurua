@@ -11,6 +11,7 @@ import {FIND_FISH_LIBS} from '../../../constants/url';
 import {sagaPost} from '../../../js/sagaUtil';
 import {cSFindFishLibs, cSFindFishFriendsSellFishTableLoading, cSFindFishFriendsSellFishTable} from '../modules/fishFriendsSellFish';
 import {FIND_FISH_FRIENDS_SELL_FISH_TABLE} from '../../../constants/url';
+
 @connect(
     (state) => {
         return {
@@ -48,6 +49,7 @@ class FishFriendsSellFishTableForm extends React.Component {
         console.log("===========渔友出鱼列表查询form-组件渲染===========");
         const {form, fishFriendsSellFish} = this.props;
         const {getFieldDecorator, resetFields} = form;
+        const fishLibArray = fishFriendsSellFish.getIn(['addFishFriendsSellFishFormC', 'fishLib']);
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -98,7 +100,9 @@ class FishFriendsSellFishTableForm extends React.Component {
                                 style={{width: '150px'}}
                             >
                                 {
-                                    fishFriendsSellFish.getIn(['addFishFriendsSellFishFormC', 'fishLib']).map(
+                                    !fishLibArray
+                                        ? null
+                                        : fishLibArray.map(
                                         c => {
                                             return <Select.Option key={c.fishId} value={c.fishId.toString()}>{c.fishName}</Select.Option>
                                         }
