@@ -29,15 +29,18 @@ axios.interceptors.response.use((res) => {
     if ((res.data.statusCode > COMMON_OK && res.data.statusCode < 6000000) || (res.data.statusCode >= 1000000 && res.data.statusCode < COMMON_OK )) {
         /*失败的请求*/
         if (res.data.statusCode === LOGIN_TIME_OUT_ERROR || res.data.statusCode === IP_EQUALS_ERROR || res.data.statusCode === TOKEN_TIME_OUT || res.data.statusCode === TOKEN_INVALID) {
-            message.info(res.data.message);
             // 把已登录标记为未登录, 用于IsLoginRoute 组件判断
             //sessionStorage.setItem('logged', LOGGED_OUT);
             /*跳转登录页*/
-            window.location.href = BASE_URL.concat('/appLayout');
-        } else if (res.data.statusCode === NO_JURISDICTION) {
+            // Promise.reject(res.data);
             message.info(res.data.message);
+            window.location = BASE_URL;
+
+        } else if (res.data.statusCode === NO_JURISDICTION) {
             /*跳转到首页页面*/
-            window.location.href = BASE_URL.concat('/appLayout');
+            window.location = BASE_URL;
+            // message.info(res.data.message);
+            return Promise.reject(res.data);
         }
         return Promise.reject(res.data);
     }
