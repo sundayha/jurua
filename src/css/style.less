@@ -57,6 +57,10 @@
 // 主页样式
 .home-div {
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 // 渔友出鱼
@@ -71,10 +75,59 @@
   }
 }
 
+// 渔友出鱼列表
+.fishFriendsSellFishTable-div {
+  .buttons-div {
+    padding-bottom: 5px;
+  }
+}
 // 添加渔友出鱼form
 .addFishFriendsSellFishForm-div {
   .title-span {
     font-size: x-large;
+  }
+}
+
+// 渔友出鱼列表查询表单
+.fishFriendsSellFishTableForm-div {
+  .ant-form-inline .ant-form-item {
+    margin-bottom: 5px;
+  }
+}
+
+// 登入
+.login-div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //flex-direction: column;
+  background-color: #f0f2f5;
+  .form-div {
+    margin-right: 50px;
+    .title-div {
+      font-size: xx-large;
+      color: black;
+      margin-bottom: 50px;
+      .title-img {
+        height: 90px;
+      }
+      .title-info-span {
+        font-size: 17px;
+        color: #848587;
+        font-weight: 300;
+      }
+    }
+    .alert {
+      width: 350px;
+      margin-bottom: 20px;
+    }
+    .login-form {
+      width: 350px;
+      .login-form-button {
+        width: 100%;
+      }
+    }
   }
 }
 

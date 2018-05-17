@@ -4,51 +4,63 @@ import {
     COMMON_OK,
     IP_EQUALS_ERROR,
     NO_JURISDICTION,
-    SESSION_TIME_OUT_ERROR,
+    LOGIN_TIME_OUT_ERROR,
     TOKEN_INVALID,
     TOKEN_TIME_OUT
 } from "../constants/statusCode";
 import {message} from "antd";
 import {BASE_URL} from "../constants/url";
 
-axios.defaults.timeout = 10000;
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
-axios.defaults.headers.put['Content-Type'] = 'application/json;charset=UTF-8';
-axios.defaults.withCredentials = true;
-//baseUrl
 axios.defaults.baseURL = API_BASE_URL;
+axios.defaults.timeout = 10000;
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8;application/excel';
+// axios.defaults.headers.common['Authorization'] = '';
+axios.defaults.headers.put['Content-Type'] = 'application/json;charset=UTF-8';
+// axios.defaults.headers.post['Origin'] = '*';
+// axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,PATCH,OPTIONS';
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.headers.common['Accept'] = 'application/json, text/plain, */*';
+// axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, Authorization';
 
-//code状态码200判断
-/*返回结果*/
+axios.defaults.withCredentials = true;
+
+// 响应拦截器
 axios.interceptors.response.use((res) => {
     /*1000001session异常，需要重定向到登录页面*/
     /*1000002用戶沒有API權限，需要重定向到登录页面*/
 
+    // res.addHeader("Access-Control-Allow-Headers", "Content-Type, authorization");
     /*更新header中的token信息*/
     if (res.headers.authorization) {
         sessionStorage.setItem('authorization', res.headers.authorization);
     }
-    if ((res.data.statusCode > COMMON_OK && res.data.statusCode < 6000000) || (res.data.statusCode > 1000000 && res.data.statusCode < COMMON_OK )) {
+    if ((res.data.statusCode > COMMON_OK && res.data.statusCode < 6000000) || (res.data.statusCode >= 1000000 && res.data.statusCode < COMMON_OK )) {
         /*失败的请求*/
-        if (res.data.statusCode === SESSION_TIME_OUT_ERROR || res.data.statusCode === IP_EQUALS_ERROR || res.data.statusCode === TOKEN_TIME_OUT || res.data.statusCode === TOKEN_INVALID) {
-            message.info(res.data.message);
+        if (res.data.statusCode === LOGIN_TIME_OUT_ERROR || res.data.statusCode === IP_EQUALS_ERROR || res.data.statusCode === TOKEN_TIME_OUT || res.data.statusCode === TOKEN_INVALID) {
             // 把已登录标记为未登录, 用于IsLoginRoute 组件判断
             //sessionStorage.setItem('logged', LOGGED_OUT);
             /*跳转登录页*/
-            window.location.href = BASE_URL;
-        } else if (res.data.statusCode === NO_JURISDICTION) {
+            // Promise.reject(res.data);
             message.info(res.data.message);
+            window.location = BASE_URL;
+
+        } else if (res.data.statusCode === NO_JURISDICTION) {
             /*跳转到首页页面*/
-            window.location.href = BASE_URL;
+            window.location = BASE_URL;
+            // message.info(res.data.message);
+            return Promise.reject(res.data);
         }
         return Promise.reject(res.data);
     }
     return res.data;
-}, err => {
+}, function (error) {
+    console.log(error);
     return Promise.reject({statusCode: "1000000", message: "网络异常，请您联系系统管理员!"})
 });
 
-/*request设置请求头的token*/
+// 请求拦截器
 axios.interceptors.request.use(
     config => {
         if (sessionStorage.getItem('authorization')) {  // 判断是否存在token，如果存在的话，则每个http header都加上token

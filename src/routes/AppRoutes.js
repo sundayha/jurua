@@ -8,6 +8,7 @@ import {Route, Switch} from 'react-router';
 // import Login from 'bundle-loader?lazy&name=Login!./login/components/Login';
 // import GoLogin from './login/components/GoLogin';
 import AppLayoutRoutes from './AppLayoutRoutes';
+import Login from './user/components/Login';
 import NoMatch from "bundle-loader?lazy&name=NoMatch!./stateCode/components/NoMatch";
 import {createComponent} from '../components/router/RouterTrick';
 import { Provider } from 'react-redux';
@@ -38,13 +39,11 @@ class AppRoutes extends React.Component {
         return (
             <Provider store={store}>
                 <ConnectedRouter history={history}>
-                    <div>
+                    <div style={{height: '100%'}}>
                         <Switch>
-                            {/*<Route exact path="/" component={Test} />
-                            <Route exact path="/test1" component={Test1} />
-                            <Route exact path="/Login" component={createComponent(Login)} />*/}
-                             <Route path="/appLayout" component={AppLayoutRoutes} />
-                             <Route component={createComponent(NoMatch)}/>
+                            <Route exact path="/" component={Login} />
+                            <Route path="/appLayout" component={AppLayoutRoutes} />
+                            <Route component={createComponent(NoMatch)}/>
                         </Switch>
                     </div>
                 </ConnectedRouter>

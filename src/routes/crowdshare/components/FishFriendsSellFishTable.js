@@ -47,15 +47,18 @@ class FishFriendsSellFishTable extends React.Component {
      * 参数：params 分页参数
      * 功能描述：合并查询渔友出鱼列表
      */
-    mergeFindFishFriendsSellFishTable(params) {
+    mergeFindFishFriendsSellFishTable = (params) => {
         const {dispatch} = this.props;
         dispatch(cSFindFishFriendsSellFishTableLoading());
         dispatch(sagaPost(FIND_FISH_FRIENDS_SELL_FISH_TABLE, params, cSFindFishFriendsSellFishTable));
-    }
+    };
 
     componentWillReceiveProps(np) {
         const {dispatch} = this.props;
         if (np.msgReducer.get("statusCode")) {
+            if (np.msgReducer.get("statusCode") === '1000000') {
+                dispatch(cSFindFishFriendsSellFishTableLoading(false));
+            }
             messages(np.msgReducer, dispatch);
         }
     }
@@ -83,7 +86,22 @@ class FishFriendsSellFishTable extends React.Component {
         const loading = fishFriendsSellFish.getIn(['fishFriendsSellFishTableC', 'loading']);
 
         const fishQuantity = (text) => {
-            return text === '0' ? '一对' : '一条';
+            let returnText;
+            switch (text) {
+                case '0':
+                    returnText = '一对';
+                    break;
+                case '1':
+                    returnText = '一条/公母随机';
+                    break;
+                case '2':
+                    returnText = '一条/母';
+                    break;
+                case '3':
+                    returnText = '一条/公';
+                    break;
+            }
+            return returnText;
         };
 
         const money = (text) => {
@@ -119,9 +137,9 @@ class FishFriendsSellFishTable extends React.Component {
         ];
 
         return(
-            <div>
+            <div className="fishFriendsSellFishTable-div">
                 <iframe ref="downloadFile" style={{display: 'none'}}></iframe>
-                <div>
+                <div className="buttons-div">
                     <Button type="primary" shape="circle" icon="plus" onClick={() => {dispatch(push('/appLayout/AddFishFriendsSellFishForm/add'))}} />
                     <Divider type="vertical" />
                     <Button type="primary" shape="circle" icon="file-excel" onClick={() => {this.downloadFile()}} />

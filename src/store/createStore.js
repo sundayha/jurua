@@ -32,7 +32,8 @@ const store = createStore(
         // 把router放进redux中
         router: routerReducer
     }),
-    compose(middleware, reduxReset(), autoRehydrate(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()), //redux dev tools 工具用于在chrome上调试redux
+    // compose(middleware, reduxReset(), autoRehydrate(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()), //redux dev tools 工具用于在chrome上调试redux
+    compose(middleware, reduxReset(), autoRehydrate()),
 );
 
 sagaMiddleware.run(rootSaga);

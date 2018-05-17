@@ -84,8 +84,8 @@ const plugins = PROD ? [
 const cssIdentName = PROD ? '[hash:base64:10]' : '[path][name]-[local]-[hash:base64:24]';
 const cssLoader = PROD ?
     extractCSS.extract({
-        fallbackLoader: "style-loader",
-        loader: 'css-loader?localIdentName=' + cssIdentName
+        fallback: "style-loader",
+        use: 'css-loader?localIdentName=' + cssIdentName
     })
     : [
         'style-loader', 'css-loader?localIdentName=' + cssIdentName
@@ -97,7 +97,8 @@ const lessLoader = PROD ?
             loader: 'css-loader'
         }, {
             // modifyVars 更改全局样式
-            loader: 'less-loader?{modifyVars:{"@primary-color":"#0d85db", "@font-size-base":"12px"}}'
+            loader: 'less-loader?{modifyVars:{"@primary-color":"#0d85db", "@font-size-base":"12px"}}',
+            options: { javascriptEnabled: true }
         }]
     })
     : [

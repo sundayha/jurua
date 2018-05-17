@@ -233,7 +233,9 @@ class AddFishFriendsSellFishForm extends React.Component {
                         })(
                             <Select placeholder="请选择选择数量">
                                 <Select.Option value="0">一对</Select.Option>
-                                <Select.Option value="1">一条</Select.Option>
+                                <Select.Option value="1">一条/公母随机</Select.Option>
+                                <Select.Option value="2">一条/母</Select.Option>
+                                <Select.Option value="3">一条/公</Select.Option>
                             </Select>
                         )}
                     </FormItem>

@@ -13,7 +13,8 @@ class Home extends React.Component {
         
         return(
             <div className="home-div">
-                <span>首页</span><br/>
+                <span>南美亚马逊短鲷精灵</span><br/>
+                <span>QQ群号：638534625</span><br/>
             </div>
         );
     }
