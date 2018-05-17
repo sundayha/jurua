@@ -102,7 +102,7 @@ class Login extends React.Component {
                     </Form>
                 </div>
                 <img style={{height: '300px'}} src={require('../assets/qq_group.jpg')} />
-                <div style={{textAlign: 'center', position: 'absolute', bottom: '15px'}}>
+                <div style={{textAlign: 'center', position: 'absolute', bottom: '15px', left:'0',width:'100%'}}>
                     南美亚马逊短鲷精灵 © 2018 QQ群号：638534625 @群主橙子制作
                 </div>
             </div>
