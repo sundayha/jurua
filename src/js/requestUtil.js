@@ -13,8 +13,17 @@ import {BASE_URL} from "../constants/url";
 
 axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.timeout = 10000;
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8;application/excel';
+// axios.defaults.headers.common['Authorization'] = '';
 axios.defaults.headers.put['Content-Type'] = 'application/json;charset=UTF-8';
+// axios.defaults.headers.post['Origin'] = '*';
+// axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,PATCH,OPTIONS';
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.headers.common['Accept'] = 'application/json, text/plain, */*';
+// axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, Authorization';
+
 axios.defaults.withCredentials = true;
 
 // 响应拦截器
@@ -22,6 +31,7 @@ axios.interceptors.response.use((res) => {
     /*1000001session异常，需要重定向到登录页面*/
     /*1000002用戶沒有API權限，需要重定向到登录页面*/
 
+    // res.addHeader("Access-Control-Allow-Headers", "Content-Type, authorization");
     /*更新header中的token信息*/
     if (res.headers.authorization) {
         sessionStorage.setItem('authorization', res.headers.authorization);
