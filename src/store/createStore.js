@@ -23,18 +23,30 @@ const historyMiddleware = routerMiddleware(history);
 
 // 实现redux异步
 const middleware = applyMiddleware( promise(), sagaMiddleware, historyMiddleware); //createActionBuffer(REHYDRATE),
-
-const store = createStore(
-    // reducer的集合
-    combineReducers({
+let store;
+if (process.env.NODE_ENV === 'production') {
+    store = createStore(
         // reducer的集合
-        appReducers: reducers,
-        // 把router放进redux中
-        router: routerReducer
-    }),
-    // compose(middleware, reduxReset(), autoRehydrate(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()), //redux dev tools 工具用于在chrome上调试redux
-    compose(middleware, reduxReset(), autoRehydrate()),
-);
+        combineReducers({
+            // reducer的集合
+            appReducers: reducers,
+            // 把router放进redux中
+            router: routerReducer
+        }),
+        compose(middleware, reduxReset(), autoRehydrate()),
+    );
+} else {
+    store = createStore(
+        // reducer的集合
+        combineReducers({
+            // reducer的集合
+            appReducers: reducers,
+            // 把router放进redux中
+            router: routerReducer
+        }),
+        compose(middleware, reduxReset(), autoRehydrate(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()), //redux dev tools 工具用于在chrome上调试redux
+    );
+}
 
 sagaMiddleware.run(rootSaga);
 

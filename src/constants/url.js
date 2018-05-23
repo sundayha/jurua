@@ -1,6 +1,13 @@
 /*BseUrl*/
-export const BASE_URL = 'http://localhost:8081'; //前端url
-export const API_BASE_URL ="http://localhost:7000"; //后端api url
+export let BASE_URL = 'http://localhost:8081'; //前端url
+export let API_BASE_URL ="http://www.jurua.cn/api"; //后端api url
+if (process.env.NODE_ENV === 'production') {
+    BASE_URL = 'http://www.jurua.cn'; //前端url
+    API_BASE_URL ="http://www.jurua.cn/api"; //后端api url
+} else {
+    BASE_URL = 'http://localhost:8081'; //前端url
+    API_BASE_URL ="http://localhost:7000"; //后端api url
+}
 /*文件上传url地址*/
 export const FILE_UPLOAD_URL = API_BASE_URL+ '/file/upload';
 
